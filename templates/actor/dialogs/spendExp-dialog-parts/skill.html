@@ -1,0 +1,15 @@
+<div class="flexcol">
+<span>Skill</span>
+<select class="skillChoice">
+        <option hidden>Choose Skill</option>
+        {{#each upgradeableSkills}}
+        <option value="{{this._id}}">{{#if this.system.parent.value}}{{this.system.parent.value}}: {{/if}}{{this.name}}</option>
+        {{/each}}
+        
+    </select>
+</div>
+
+<div class="flexcol">
+    <span>Discount:</span>
+    <input id="discount" class="discount" type="text"  value="0">
+</div>

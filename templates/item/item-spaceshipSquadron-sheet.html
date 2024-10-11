@@ -1,0 +1,33 @@
+<form class="{{cssClass}} item-sheet flexcol">
+ <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{name}}"/>
+        
+    </header>
+    {{#if isGM}}
+    <label class="button clone">Copy Item</label>
+    {{/if}}
+    <div class="flexcol">
+        <label>Name:</label>
+        <input type="text" value="{{name}}" name="name">
+    </div>
+    <div class="flexcol">
+        <label>Type:</label>
+        <select class="damage-type" name="system.type.value">
+                {{#select system.type.value}}
+                {{#each FORTYK.spaceshipSquadronTypes}}
+                <option value="{{this}}">{{this}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+    </div>
+    <div class="flexcol">
+        <label>Rating:</label>
+        <input type="text" value="{{system.rating.value}}" name="system.rating.value">
+    </div>
+    
+    
+    <div class="item-description">
+        <label>Description:</label>
+        {{editor system.description.value target="system.description.value" button=true owner=owner editable=editable}}
+    </div>
+</form>

@@ -1,0 +1,111 @@
+<div class="sheet-exp flexcol">
+    <label class="section-title">Aptitudes</label>
+    
+    <div class="grid grid-4col">
+        
+        <select class="apt1-select" name="system.aptitudes.0" data-dtype="String">
+            <option value="">None</option>
+            {{selectOptions aptitudes selected=system.aptitudes.[0] valueAttr="key" labelAttr="label"}}
+        
+        </select>
+        <select class="apt1-select" name="system.aptitudes.1" data-dtype="String">
+            
+            <option value="">None</option>
+           {{selectOptions aptitudes selected=system.aptitudes.[1] valueAttr="key" labelAttr="label"}}
+        </select>
+        <select class="apt1-select" name="system.aptitudes.2" data-dtype="String">
+           
+            <option value="">None</option>
+            {{selectOptions aptitudes selected=system.aptitudes.[2] valueAttr="key" labelAttr="label"}}
+        </select>
+        <select class="apt1-select" name="system.aptitudes.3" data-dtype="String">
+            
+            <option value="">None</option>
+            {{selectOptions aptitudes selected=system.aptitudes.[3] valueAttr="key" labelAttr="label"}}
+        </select>
+        <select class="apt1-select" name="system.aptitudes.4" data-dtype="String">
+          
+            <option value="">None</option>
+            {{selectOptions aptitudes selected=system.aptitudes.[4] valueAttr="key" labelAttr="label"}}
+        </select>
+        <select class="apt1-select" name="system.aptitudes.5" data-dtype="String">
+        
+            <option value="">None</option>
+           {{selectOptions aptitudes selected=system.aptitudes.[5] valueAttr="key" labelAttr="label"}}
+        </select>
+        <select class="apt1-select" name="system.aptitudes.6" data-dtype="String">
+            
+            <option value="">None</option>
+            {{selectOptions aptitudes selected=system.aptitudes.[6] valueAttr="key" labelAttr="label"}}
+        </select>
+        <select class="apt1-select" name="system.aptitudes.7" data-dtype="String">
+          
+            <option value="">None</option>
+           {{selectOptions aptitudes selected=system.aptitudes.[7] valueAttr="key" labelAttr="label"}}
+        </select>
+        
+    </div>
+    <label class="section-title">Experience</label>
+    <div class="flexrow">
+        <div class="flexcol">
+            <label>Starting Exp:</label>
+            <input type="text" name="system.experience.starting" value="{{system.experience.starting}}" data-dtype="Number">
+        </div>
+        <div class="flexcol">
+            <label>Exp Earned:</label>
+            <span class="exp-item">{{system.experience.earned}}</span>
+        </div>
+        <div class="flexcol">
+            <label>Exp Spent:</label>
+            <span class="exp-item">{{system.experience.spent}}</span>
+        </div>
+        <div class="flexcol">
+             <label>Remaining Exp:</label>
+            <span class="exp-item">{{system.experience.value}}</span>
+        </div>
+    </div>
+    <label class="section-title">Advancements</label>
+    <a class="spend-exp button" data-type="advancement" title="Add a new Advancement">Add Advancement</a>
+    <div class="list list4col grid grid-4col">
+        <a class="list-item-header sort-button" data-sort-type="name" data-path="name" data-item-type="advancements">Name</a>
+        <a class="list-item-header sort-button" data-sort-type="cost" data-path="system.cost.value" data-item-type="advancements">Cost</a>
+        <span class="list-item-header"></span>
+        <span class="list-item-header-last"></span>
+        {{#each actor.advancements as |a key|}}
+        
+            <a class="item-descr list-item" data-name="{{a.name}}" data-item-descr="{{a.system.description.value}}">{{a.name}}</a>
+            <label class="list-item">{{a.system.cost.value}}</label>
+           <span class="list-button"><a class="list-button item-edit" title="Edit" data-item-id="{{a._id}}"></a></span>
+        <span class="list-button"><a class="list-button item-delete" title="Delete" data-item-id="{{a._id}}"></a></span>
+            
+            
+       
+
+        
+        {{/each}}
+
+    </div>
+    <span class="section-title">Missions</span>
+    <a class="item-create button" data-type="mission" title="Add a new Mission">Add Mission</a>
+    <div class="list list5col grid grid-5col">
+        <a class="list-item-header sort-button" data-sort-type="name" data-path="name" data-item-type="missions">Name</a>
+        <a class="list-item-header sort-button" data-sort-type="exp" data-path="system.exp.value" data-item-type="missions">Exp</a>
+        <a class="list-item-header sort-button" data-sort-type="inf" data-path="system.inf.value" data-item-type="missions">Inf</a>
+        <span class="list-item-header"></span>
+        <span class="list-item-header-last"></span>
+        {{#each actor.missions as |m key|}}
+       
+            <a class="item-descr list-item" data-name="{{m.name}}" data-item-descr="{{m.system.description.value}}">{{m.name}}</a>
+            <span class="list-item">{{m.system.exp.value}}</span>
+            <span class="list-item">{{m.system.inf.value}}</span>
+        <span class="list-button"><a class="list-button item-edit" title="Edit" data-item-id="{{m._id}}"></a></span>
+        <span class="list-button"><a class="list-button item-delete" title="Delete" data-item-id="{{m._id}}"></a></span>
+            
+            
+       
+
+        
+        {{/each}}
+
+    </div>
+</div>

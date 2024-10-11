@@ -1,0 +1,60 @@
+<div class="weapons grid grid-2col">
+    <div class="list-item">
+        <span>Name: {{this.name}}</span>
+    </div>
+
+    <div class="list-item">
+        <span>Range: {{this.system.range.value}}m</span>
+    </div>
+    <div class="list-item">
+        <span class="ranged-attack rollable button" data-roll-type="rangedAttack" data-target="{{system.characteristics.bs.total}}" data-item-id="this.id" data-label="Ranged Attack" data-char="bs">Attack Roll</span>
+    </div>
+    <div class="list-item">
+        <span>Damage: </span> 
+        <a class="damage-roll button" data-label="{{this.name}}"data-formula="{{this.system.damageFormula.value}}" data-weapon="{{this.id}}"> {{this.system.damageFormula.value}}</a>
+
+    </div>
+    <div class="list-item">
+        <span>Penetration: {{this.system.pen.value}}</span>
+
+    </div>
+    <div class="list-item">
+        <label>Rate of Fire: {{this.system.rof.[0].value}}/{{this.system.rof.[1].value}}/{{this.system.rof.[2].value}}</label>
+    </div>
+    <div class="list-item flexrow">
+        <span>Clip: </span>
+
+        <input class="clip-current" type="text" value="{{this.system.clip.value}}" name="actor.wornGear.weapons.1.system.clip.value" data-item-id="{{this.id}}" data-dtype="Number">
+        <span> / </span>
+        <span>{{this.system.clip.max}}</span>
+
+    </div>
+    <div class="list-item">
+        <span>Reload: {{this.system.reload.value}}</span>
+
+    </div>
+    <div class="list-item">
+        <span>Special: 
+            {{#each this.flags.specials}}
+            {{#if this.value}}
+            <a class="item-descr" data-name="{{this.label}}" data-item-descr="{{this.description}}" >{{this.label}}{{#if (isdefined this.num)}}({{this.num}}){{/if}}</a>
+            {{/if}}{{/each}}
+        </span>
+
+    </div>
+    <div class="list-item">
+        <span>Damage Type: {{this.system.damageType.value}}</span>
+
+    </div>
+    <div class="list-item">
+        <span>Weapon Class: {{this.system.class.value}}</span>
+
+
+    </div>
+    <div class="list-item">
+        <span>Weapon Type: {{this.system.type.value}}</span>
+
+
+    </div>
+
+</div>

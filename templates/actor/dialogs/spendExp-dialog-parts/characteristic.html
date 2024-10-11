@@ -1,0 +1,17 @@
+<div class="flexcol">
+<span>Characteristic</span>
+<select class="charChoice">
+        <option hidden>Choose Characteristic</option>
+  
+        {{#each upgradeableChars as |key k|}}
+       
+        <option value="{{k}}">{{key.label}}</option>
+        {{/each}}
+        
+    </select>
+</div>
+
+<div class="flexcol">
+    <span>Discount:</span>
+    <input id="discount" class="discount" type="text"  value="0">
+</div>

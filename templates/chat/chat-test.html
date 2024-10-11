@@ -1,0 +1,40 @@
+{{debug}}
+<div class="fortyk  flexcol">
+
+    <span class="chat-target">{{title}}</span>
+    <div class="flexrow">
+        <span class="chat-target">{{rollResult}}</span>
+        {{#if modifiers}}
+        <label class="chat-target popup" data-id="{{id}}"> {{target}} <span class="popuptext2 chat-background flexcol" id="{{id}}">
+            {{#each modifiers}}{{#unless (equals value 0)}}<div class="pop-line"><span>{{this.label}}:</span> <span>{{#if (greaterThan value -1)}}+{{/if}}{{this.value}}</span></div>{{/unless}}
+            {{/each}}</span></label> 
+        {{else}}
+        <span class="chat-target">{{target}}</span>   
+        {{/if}}
+    </div>
+    <div class="flexcol chat-target">
+        <span class="chat-line {{#if success}}test-success{{else}}test-failure{{/if}}">{{pass}}</span>
+        <span class="roll-result">{{dos}}</span>
+        {{#if numberHits}}
+        <span class="chat-line">{{numberHits}}</span>
+        {{/if}}
+        {{#if sizePenalty}}
+        <span class="chat-line">{{sizePenalty}}</span>
+        {{/if}}
+        {{#if inescapableAttack}}
+        <span class="chat-line">{{inescapableAttack}}</span>
+        {{/if}}
+        {{#if desolationPenalty}}
+        <span class="chat-line">{{desolationPenalty}}</span>
+        {{/if}}
+        {{#if huntergyroPenalty}}
+        <span class="chat-line">{{huntergyroPenalty}}</span>
+        {{/if}}
+        
+    </div>
+
+
+</div>
+{{#unless reroll}}
+<a class="fortyk button reroll" data-actor="{{actor}}" data-char="{{char}}" data-roll-type="{{type}}" data-target="{{targetNumber}}" data-label="{{label}}" data-weapon="{{weapon}}" data-fire="{{fireRate}}">Reroll</a>
+{{/unless}}

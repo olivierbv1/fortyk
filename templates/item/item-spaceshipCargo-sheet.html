@@ -1,0 +1,54 @@
+<form class="{{cssClass}} item-sheet flexcol">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{name}}"/>
+
+    </header>
+    {{#if isGM}}
+    <label class="button clone">Copy Item</label>
+    {{/if}}
+    <div class="flexcol">
+        <label>Name:</label>
+        <input type="text" value="{{name}}" name="name">
+    </div>
+    <div class="flexcol">
+        <label>Type:</label>
+        <select class="damage-type" name="system.type.value">
+            {{selectOptions FORTYK.spaceshipCargoTypes selected=system.type.value valueAttr="value" labelAttr="value"}}
+            
+        </select>
+    </div>
+    {{#if (contains system.type.value "Torpedoes")}}
+    <div class="flexcol">
+        <label>Damage:</label>
+        <input type="text" value="{{system.damage.value}}" name="system.damage.value">
+    </div>
+
+    <div class="flexcol">
+        <label>Rating:</label>
+        <input type="text" value="{{system.rating.value}}" name="system.rating.value">
+    </div>
+    {{/if}}
+
+    <div class="flexcol">
+        <label>Value:</label>
+        <input type="text" value="{{system.pf.value}}" name="system.pf.value" disabled>
+    </div>
+
+    <div class="flexcol">
+        <label>Rarity:</label>
+        <select class="damage-type" name="system.rarity.value">
+            {{selectOptions FORTYK.itemRarity selected=system.rarity.value valueAttr="value" labelAttr="label"}}
+        </select>
+    </div>
+    <div class="flexcol">
+        <label>Item Quality:</label>
+
+        <select class="quality"  name="system.quality.value">
+            {{selectOptions FORTYK.itemQualities selected=system.quality.value valueAttr="value" labelAttr="value"}}
+        </select>
+    </div>
+    <div class="item-description">
+        <label>Description:</label>
+        {{editor system.description.value target="system.description.value" button=true owner=owner editable=editable}}
+    </div>
+</form>

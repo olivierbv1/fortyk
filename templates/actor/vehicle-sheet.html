@@ -1,0 +1,493 @@
+<form class="{{cssClass}} charSheet flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class=" no-flex">
+
+        <div class="flexcol">
+            <div class="flexrow sheet-header">
+
+                <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+                <div class="header-fields">
+                    <div class="flexcol">
+                        <div class="descr grid grid-2col">
+
+                            <div class="descrRow flexcol">
+                                <span class="descrSpan">Name:</span>
+                                <input type="text" class="combat-resources" data-target="name" value="{{name}}" data-dtype="String"/>
+                            </div>
+
+                            <div class="descrRow flexcol">
+                                <span class="descrSpan">Type:</span>
+                                <select class="typeSelect" name="system.type.value" data-dtype="String">
+                                    {{selectOptions vehicleTypes selected=system.type.value valueAttr="value"}}
+
+                                </select>
+                            </div>
+                            <div class="descrRow flexcol">
+                                <span class="descrSpan">Tactical Speed:</span>
+                                <input type="text" class="combat-resources" data-target="system.secChar.speed.tactical" value="{{system.secChar.speed.tactical}}" data-dtype="Number"/>
+                            </div>
+                            <div class="descrRow flexcol">
+                                <span class="descrSpan">Cruising Speed:</span>
+                                <input type="text" class="combat-resources" data-target="system.secChar.speed.cruising" value="{{system.secChar.speed.cruising}}" data-dtype="String"/>
+                            </div>
+                            <div class="descrRow flexcol">
+                                <span class="descrSpan">Manoeuvrability:</span>
+                                <input type="text" class="combat-resources" data-target="system.secChar.manoeuvrability.value" value="{{system.secChar.manoeuvrability.value}}" data-dtype="Number"/>
+                            </div>
+                            <div class="descrRow flexcol">
+                                <label for="system.secChar.wounds.value" class="resource-label">Structural Integrity</label>
+                                <div class="resource-content flexrow flex-center flex-between">
+                                    <input type="text" class="combat-resources" data-target="system.secChar.wounds.value" value="{{system.secChar.wounds.value}}" data-dtype="Number"/>
+                                    <span>/</span>
+                                    <input type="text" class="combat-resources" data-target="system.secChar.wounds.max" value="{{system.secChar.wounds.max}}" data-dtype="Number"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
+    </header>
+
+
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-content">
+
+        <div class="sub-sheet grid grid-2col">
+
+            <div class="flexcol vehicle-categories no-flex">
+                <span class="section-title">Weapons</span>
+                <div class="flexrow no-flex">
+                    <a class="item-create button" data-type="rangedWeapon" title="Add a Ranged Weapon">Add ranged weapon</a>
+                    <a class="item-create button" data-type="meleeWeapon" title="Add a Melee Weapon">Add melee weapon</a>
+                </div>
+                <div class="flexcol">
+                    {{#each actor.meleeWeapons}}
+                    <div>
+                        <div class="weapons grid grid-2col ">
+                            <div class="weapon-name">
+                                {{#if flags.fortyk.alternateprofiles}}
+
+                                <select class="profile-select" data-id="{{this.id}}">
+
+                                </select>
+                                {{else}}
+
+                                <span>{{this.name}}</span>
+
+                                {{/if}}
+                            </div>
+
+                            <div class="list-item {{#if flags.fortyk.disabled}}disableddiv{{/if}}">
+                                <span>Attack: </span>
+                                <span class="melee-attack rollable button" data-roll-type="meleeAttack" data-target="{{../system.crew.ws}}" data-item-id="{{this._id}}" data-label="Melee Attack" data-char="ws">Roll</span>
+                            </div>
+                            <div class="list-item {{#if flags.fortyk.disabled}}disableddiv{{/if}}">
+                                <span>Damage: </span>
+                                <a class="damage-roll button" data-label="{{this.name}}"data-formula="{{this.system.damageFormula.value}}" data-weapon="{{this._id}}"> {{this.system.damageFormula.value}}</a>
+                            </div>
+                            {{#if this.flags.fortyk.force}}
+                            <div class="list-item">
+
+                                <a class="force-roll button" data-label="Force"> Force</a>
+
+
+                            </div>
+                            {{/if}}
+                            <div class="list-item">
+                                <span>Reach: {{this.system.range.value}}m</span>
+                            </div>
+                            <div class="list-item">
+                                <span>Penetration: {{this.system.pen.value}}</span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Special: 
+
+                                    {{#each this.flags.fortyk as |flag key|}}
+
+                                    {{#if (checkSpecial this)}}
+
+                                    {{#with (lookup ../FORTYK.weaponFlags [key])~}}
+                                    <a class="item-descr" data-name="{{label}}" data-item-descr="{{description}}" >
+
+                                        {{label}}{{/with}}{{#if (isnumber this)}}({{this}}){{/if}}</a>
+                                    {{/if}}{{/each}}
+                                </span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Damage Type: {{this.system.damageType.value}}</span>
+
+                            </div>
+
+
+                            <div class="list-item">
+                                <span>Facing: {{this.system.facing.value}}</span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Mounting: {{this.system.mounting.value}}</span>
+
+                            </div>
+                            <div class="list-item flexrow">
+                                <a class="list-button item-edit" title="Edit" data-item-id="{{this._id}}"></a>
+                                <a class="list-button item-delete" title="Delete" data-item-id="{{this._id}}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{#each actor.rangedWeapons}}
+                    <div>
+
+                        <div class="weapons grid grid-2col ">
+                            <div class="weapon-name">
+                                {{#if flags.fortyk.alternateprofiles}}
+
+                                <select class="profile-select" data-id="{{this.id}}">
+                                    {{selectOptions flags.fortyk.instancedProfiles selected=flags.fortyk.currentprofile valueAttr="uuid" labelAttr="name"}}
+                                </select>
+                                {{else}}
+
+                                <span>{{this.name}}</span>
+
+                                {{/if}}
+                            </div>
+
+
+                            <div class="list-item {{#if flags.fortyk.disabled}}disableddiv{{/if}}">
+                                <span>Attack: </span>
+                                {{#if this.flags.fortyk.spray}}
+                                <span class="spray-attack rollable button" data-roll-type="sprayAttack" data-item-id="{{this.id}}" data-label="Spray Attack" >Spray</span>
+                                {{else if this.flags.fortyk.torrent}}
+                                <span class="torrent-attack rollable button" data-roll-type="torrentAttack" data-item-id="{{this.id}}" data-label="Torrent Attack" >Torrent</span>
+                                {{else}}
+
+                                <span class="ranged-attack rollable button" data-roll-type="rangedAttack" data-target="{{../system.crew.bs}}" data-item-id="{{this.id}}" data-label="Ranged Attack" data-char="bs">Roll</span>
+
+                                {{/if}}
+                            </div>
+                            <div class="list-item {{#if flags.fortyk.disabled}}disableddiv{{/if}}">
+                                <span>Damage: </span>
+                                <a class="damage-roll button" data-label="{{this.name}}" data-formula="{{this.system.damageFormula.value}}" data-weapon="{{this._id}}"> {{this.system.damageFormula.value}}</a>
+
+                            </div>
+
+                            {{#if this.flags.fortyk.force}}
+                            <div class="list-item">
+
+                                <a class="force-roll button" data-label="Force"> Force</a>
+
+
+                            </div>
+                            {{/if}}
+                            {{#if this.flags.fortyk.maximal}}
+                            <div class="list-item">
+                                <span>Maximal: <input type="checkbox" class="maximal" data-item-id="{{this._id}}"  {{checked this.flags.fortyk.maximalMode}}></span>
+
+
+                            </div>
+                            {{/if}}
+                            {{#if this.flags.fortyk.lasModal}}
+                            <div class="list-item">
+                                <span>Las Fire Mode: 
+                                    <select class="lasMode"  data-item-id="{{this._id}}" data-dtype="Number">
+                                        {{selectOptions this.FORTYK.lasModes selected=this.flags.fortyk.lasMode valueAttr="key" labelAttr="label"}}
+                                    </select>
+                                </span>
+
+
+                            </div>
+                            {{/if}}
+                            <div class="list-item flexrow">
+                                <span>Clip: </span>
+
+                                <input class="item-text-input" type="text" data-target="system.clip.value" value="{{this.system.clip.value}}" name="this.system.clip.value" data-item-id="{{this._id}}" data-dtype="Number">
+                                <span> / </span>
+                                <span>{{this.system.clip.max}}</span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Range: {{this.system.range.value}}m</span>
+                            </div>
+                            <div class="list-item">
+                                <span>Penetration: {{this.system.pen.value}}</span>
+
+                            </div>
+                            <div class="list-item">
+                                <label>Rate of Fire: {{this.system.rof.[0].value}}/{{this.system.rof.[1].value}}/{{this.system.rof.[2].value}}</label>
+                            </div>
+                            <div class="list-item">
+                                <span>Reload: {{this.system.reload.value}}</span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Special: 
+
+                                    {{#each this.flags.fortyk as |flag key|}}
+
+                                    {{#if (checkSpecial this)}}
+
+                                    {{#with (lookup ../FORTYK.weaponFlags [key])~}}
+                                    <a class="item-descr" data-name="{{label}}" data-item-descr="{{description}}" >
+
+                                        {{label}}{{/with}}{{#if (isnumber this)}}({{this}}){{/if}}</a>
+                                    {{/if}}{{/each}}
+                                </span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Damage Type: {{this.system.damageType.value}}</span>
+
+                            </div>
+
+
+                            <div class="list-item">
+                                <span>Facing: {{this.system.facing.value}}</span>
+
+                            </div>
+                            <div class="list-item">
+                                <span>Mounting: {{this.system.mounting.value}}</span>
+
+                            </div>
+                            <div class="list-item flexrow">
+
+                                <a class="list-button item-edit" title="Edit" data-item-id="{{this._id}}"></a>
+                                <a class="list-button item-delete" title="Delete" data-item-id="{{this._id}}"></a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="flexcol vehicle-categories margin-left">
+                {{#if flags.fortyk.superheavy}}
+                <div class="descrRow flexcol">
+                    {{#if (greaterThan system.knight.heat.value system.knight.heat.cap)}}
+                    <span class="knight-overheat button">Overheat</span>
+                    {{else}}
+
+                    <label for="system.secChar.wounds.value" class="resource-label">Heat</label>
+
+                    {{/if}}
+
+                    <div class="resource-content flexrow flex-center flex-between">
+                        <input type="text" class="combat-resources" data-target="system.knight.heat.value" value="{{system.knight.heat.value}}" data-dtype="Number"/>
+                        <span>/</span>
+                        <input type="text" class="combat-resources" data-target="system.knight.heat.max" value="{{system.knight.heat.max}}" data-dtype="Number" />
+
+                    </div>
+
+                </div>
+                {{/if}}
+                <div class="flexcol no-flex">
+                    <span class="section-title">Crew</span>
+                    <input type="text" class="combat-resources" data-target="system.crew.value" value="{{system.crew.value}}" data-dtype="String"/>
+                    <span class="descrSpan">Carrying Capacity:</span>
+                    <input type="text" class="combat-resources" data-target="system.crew.capacity" value="{{system.crew.capacity}}" data-dtype="String"/>
+                    <div class="flexcol">
+                        <div class="descrRow flexcol">
+                            <span class="char-total rollable button" data-roll-type="evasion" data-target="{{system.crew.jink}}" data-label="Jink" data-char="">Jink</span>
+
+
+                        </div>
+                        <div class="descrRow flexrow">
+
+                            <div class="flexcol">
+                                <span class="char-total rollable button" data-roll-type="char" data-target="{{system.crew.ratingTotal}}" data-label="Crew Rating" data-char="">Crew Rating:</span>
+                                <span class="descrSpan"></span>
+                                <input type="text" class="combat-resources" data-target="system.crew.rating" value="{{system.crew.rating}}" data-dtype="Number"/>
+                            </div>
+
+                            <div class="flexcol">
+                                <span class="char-total rollable button" data-roll-type="char" data-target="{{system.crew.ws}}" data-label="Crew WS" data-char="">Crew WS:</span>
+                                <span class="descrSpan"></span>
+                                <input type="text" class="combat-resources" data-target="system.crew.ws" value="{{system.crew.ws}}" data-dtype="Number"/>
+                            </div>
+
+                            <div class="flexcol">
+                                <span class="char-total rollable button" data-roll-type="char" data-target="{{system.crew.bs}}" data-label="Crew BS" data-char="">Crew BS:</span>
+                                <span class="descrSpan"></span>
+                                <input type="text" class="combat-resources" data-target="system.crew.bs" value="{{system.crew.bs}}" data-dtype="Number"/>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="flexcol no-flex">
+                    <span class="section-title">Armor &amp; Size</span>
+                    <div class="flexrow">
+
+                        <div class="flexcol flex-group-center">
+                            <div class="flexrow flex-group-left">
+                                <span >Size</span>
+                                <select class="sizeSelect" name="system.secChar.size.value" data-dtype="Number">
+                                    {{selectOptions size selected=system.secChar.size.value valueAttr="index" labelAttr="name"}}
+                                </select>
+
+
+                            </div>
+                            <span >Cover</span>
+
+                            <select class="cover"  name="system.secChar.cover.value">
+                                {{selectOptions coverTypes selected=system.secChar.cover.value valueAttr="value" labelAttr="label"}}
+                            </select>
+
+                        </div>
+                        <div class="flexcol flex-group-center">
+                            <div class="resource flex-group-center">
+                                <label  class="resource-label">Has Turret</label>
+                                <div class="resource-content flex-group-center">
+                                    <input type="checkbox" name="system.hasTurret.value" {{checked system.hasTurret.value}}>
+                                </div>
+                            </div>
+                            <span >Force Field</span>
+                            <div class="flexrow">
+                                <select class="force-field" >
+
+                                    <option value="" {{#if system.secChar.wornGear.forceField}}selected{{/if}}>None</option>
+                                    {{#each actor.forceFields}}
+                                    <option value="{{this._id}}" {{#if this.system.isEquipped}}selected{{/if}}>{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+
+                                {{#if system.secChar.wornGear.forceField._id}}
+                                <a class="item-edit" data-item-id="{{system.secChar.wornGear.forceField._id}}"data-type="forceField" title="Edit Forcefield"></a>
+                                <a class="item-delete minus-button" data-item-id="{{system.secChar.wornGear.forceField._id}}"data-type="forceField" title="Delete Forcefield"></a>
+                            </div>
+                            <div class="forcefield flexrow flex-group-center">
+                                {{#unless system.secChar.wornGear.forceField.system.broken.value}}
+                                <label>Overload: {{system.secChar.wornGear.forceField.system.rating.overload}}</label>
+                                <label>Rating: </label> 
+
+                                <span class="forcefield rollable button" data-roll-type="forcefield" data-id="{{system.secChar.wornGear.forceField._id}}">{{system.secChar.wornGear.forceField.system.rating.value}}</span>
+                                {{else}}
+                                <span class="forcefield repairForcefield button" data-id="{{system.secChar.wornGear.forceField._id}}" >Repair</span>
+                                {{/unless}}
+
+                            </div>
+                            {{else}}
+                            <a class="item-create plus-button" data-type="forceField" title="Add Forcefield"></a>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="forcefield flexcol">
+
+
+
+                <div class="flexcol">
+
+                    <div class="flexrow flex-group-center">
+                        <div class="armor flexcol flex-group-center">
+
+                            <span>Front</span>
+                            <input type="text" class="combat-resources" data-target="system.facings.front.armor" value="{{system.facings.front.armor}}" data-dtype="Number"/>
+                        </div>
+                        <div class="armor flexcol flex-group-center">
+
+                            <span>Left Side</span>
+
+
+                            <input type="text" class="combat-resources" data-target="system.facings.lSide.armor" value="{{system.facings.lSide.armor}}" data-dtype="Number"/>
+                        </div>
+                        <div class="armor flexcol flex-group-center">
+
+                            <span>Right Side</span>
+
+                            <input type="text" class="combat-resources" data-target="system.facings.rSide.armor" value="{{system.facings.rSide.armor}}" data-dtype="Number"/>
+                        </div>
+                        <div class="armor flexcol flex-group-center">
+
+                            <span>Rear</span>
+
+                            <input type="text" class="combat-resources" data-target="system.facings.rear.armor" value="{{system.facings.rear.armor}}" data-dtype="Number"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tnt flexcol">
+                <span class="section-title">Traits</span>
+                <a class="tnt-create button" data-type="talentntrait" title="Add a new Talent or Trait">Add Trait</a>
+                <div class="list list3col grid grid-3col">
+                    <span class="list-item">Name</span>
+                    <span class="list-button"></span>
+                    <span class="list-button"></span>
+                    {{#each actor.talentsntraits as |t key|}}
+
+                    <a class="item-descr list-item" data-name="{{t.name}}" data-item-descr="{{t.system.description.value}}">{{t.name}}{{#unless (compareString "N/A" t.system.specialisation.value)}} ({{t.system.specialisation.value}}){{/unless}} </a>
+                    <a class="list-button item-edit" title="Edit" data-item-id="{{t._id}}"></a>
+                    <a class="list-button item-delete" title="Delete" data-item-id="{{t._id}}"></a>
+
+
+
+                    {{/each}}
+
+                </div>
+
+            </div>
+            {{#if flags.fortyk.superheavy}}
+            <div class="descrRow flexcol">
+                <span class="section-title">Components</span>
+                <div class="list list3col grid grid-3col">
+                    <span class="list-item">Name</span>
+                    <span class="list-button"></span>
+                    <span class="list-button"></span>
+                    {{#each components as |t key|}}
+
+                    <a class="item-descr list-item" data-name="{{t.name}}" data-item-descr="{{t.system.description.value}}">{{t.name}}{{#unless (compareString "N/A" t.system.specialisation.value)}} ({{t.system.specialisation.value}}){{/unless}} </a>
+                    <a class="list-button item-edit" title="Edit" data-item-id="{{t._id}}"></a>
+                    <a class="list-button item-delete" title="Delete" data-item-id="{{t._id}}"></a>
+
+
+
+                    {{/each}}
+
+                </div>
+
+
+            </div>
+            {{/if}}
+            <div class="tnt flexcol">
+                <span class="section-title">Description</span>
+                <div class="item-description">
+                    {{editor system.description.value target="system.description.value" button=true owner=owner editable=editable rollData=rollData}}
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </section>
+</form>

@@ -1,0 +1,86 @@
+<form class="{{cssClass}} item-sheet flexcol">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{name}}"/>
+
+    </header>
+    {{#if isGM}}
+    <label class="button clone">Copy Item</label>
+    {{/if}}
+    <div class="flexcol">
+        <label>Name:</label>
+        <input type="text" value="{{name}}" name="name">
+    </div>
+    <div class="flexcol">
+        <label>Weight:</label>
+        <input type="text" value="{{system.weight.value}}" name="system.weight.value">
+    </div>
+    <div class="flexcol">
+        <label>Item Quality:</label>
+
+        <select class="quality"  name="system.quality.value">
+            {{selectOptions FORTYK.itemQualities selected=system.quality.value valueAttr="value" labelAttr="value"}}
+        </select>
+    </div>
+    <div class="flexcol">
+        <label>Rarity:</label>
+        <select class="power-type" name="system.rarity.value">
+            {{selectOptions FORTYK.itemRarity selected=system.rarity.value valueAttr="value" labelAttr="label"}}
+        </select>
+    </div>
+    <div class="flexcol">
+        <label>Max Agility:</label>
+        <input type="text" value="{{system.maxAgi.value}}" name="system.maxAgi.value">
+    </div>
+    {{#if isGM}}
+    <div class="flexcol">
+        <a class="modifier button">Active Effects</a>
+    </div>
+    {{/if}}
+    <div class="flexcol">
+        <a class="special button">Special Qualities</a>
+    </div>
+    <div class="armor-wrap flexcol">
+        <div class="flexrow flex-group-center">
+            <div class="flexcol">
+
+                <label>Head</label>
+                <input type="text" value="{{system.ap.head.value}}" name="system.ap.head.value">
+            </div>
+
+        </div>
+        <div class="flexrow flex-group-center">
+            <div class="flexcol">
+
+                <label>Left Arm</label>
+                <input type="text" value="{{system.ap.lArm.value}}" name="system.ap.lArm.value">
+            </div>
+            <div class="flexcol">
+
+                <label>Body</label>
+                <input type="text" value="{{system.ap.body.value}}" name="system.ap.body.value">
+            </div>
+            <div class="flexcol">
+
+                <label>Right Arm</label>
+                <input type="text" value="{{system.ap.rArm.value}}" name="system.ap.rArm.value">
+            </div>
+        </div>
+        <div class="flexrow flex-group-center">
+
+            <div class="flexcol">
+
+                <label>Left Leg</label>
+                <input type="text" value="{{system.ap.lLeg.value}}" name="system.ap.lLeg.value">
+            </div>
+            <div class="flexcol">
+
+                <label>Right Leg</label>
+                <input type="text" value="{{system.ap.rLeg.value}}" name="system.ap.rLeg.value">
+            </div>
+        </div>
+    </div>
+    <div class="item-description">
+        <label>Description:</label>
+        {{editor system.description.value target="system.description.value" button=true owner=owner editable=editable}}
+    </div>
+</form>

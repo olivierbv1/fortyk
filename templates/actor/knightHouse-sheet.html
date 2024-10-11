@@ -1,0 +1,259 @@
+<form class="{{cssClass}} charSheet flexcol" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <header class="sheet-header flexrow">
+
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        {{!-- Sheet Tab Navigation --}}
+        <nav class="sheet-tabs tabs grid grid-3col" data-group="primary">
+
+            <a class="item" data-tab="main">MAIN</a>
+            <a class="item" data-tab="repairbay">REPAIR BAY</a>
+            <a class="item" data-tab="inventory">INVENTORY</a>
+
+
+        </nav>
+
+    </header>
+
+
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-content">
+
+        {{!-- Main Tab --}}
+        <div class="tab main" data-group="primary" data-tab="main">
+            <div class="descr ">
+                <div class="descrRow flex-group-left">
+                    <span class="descrSpan">House Name:</span>
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+                </div>
+            </div>
+            <div class="descr flexcol">
+                <div class="descrRow flex-group-left">
+                    <label class="underline">House & Alliances</label>
+                    <div class=" flexcol">
+                        <span class="descrSpan">High King:</span>
+                        <input type="text" class="combat-resources" data-target="system.alliances.highKing" value="{{system.alliances.highKing}}"placeholder="High King" data-dtype="String"/>
+                        <div class=" flexcol">
+                            <span class="descrSpan">House Type:</span>
+                            <input type="text" class="combat-resources" data-target="system.alliances.houseType" value="{{system.alliances.houseType}}"placeholder="Type" data-dtype="String"/>
+                        </div>
+                        <div class=" flexcol">
+                            <span class="descrSpan">House Colors:</span>
+                            <input type="text" class="combat-resources" data-target="system.colors.value" value="{{system.colors.value}}"placeholder="Colors" data-dtype="String"/>
+                        </div>
+                        <div class=" flexcol">
+                            <span class="descrSpan">House Alliance:</span>
+                            <input type="text" class="combat-resources" data-target="system.alliances.recentAlliance" value="{{system.alliances.recentAlliance}}"placeholder="Faction" data-dtype="String"/>
+                        </div>
+                        <div class=" flexcol">
+                            <span class="descrSpan">House Navigator:</span>
+                            <input type="text" class="combat-resources" data-target="system.alliances.navigatorAlliance" value="{{system.alliances.navigatorAlliance}}"placeholder="Navigator House" data-dtype="String"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="descr flexcol">
+                <div class="descrRow flex-group-left">
+                    <label class="underline">House Wealth</label>
+                    <div class="flexrow">
+                        <div class=" flexcol">
+                            <span class="descrSpan">Rating:</span>
+                            <input type="text" class="combat-resources" data-target="system.wealth.rating" value="{{system.wealth.rating}}"placeholder="0" data-dtype="Number"/>
+                        </div>
+                        <div class=" flexcol">
+                            <span class="descrSpan">Income:</span>
+                            <input type="text" class="combat-resources" data-target="system.wealth.income" value="{{system.wealth.income}}"placeholder="0" data-dtype="Number" disabled/>
+                        </div>
+                        <span class="button addIncome" >Add Income</span>
+                    </div>
+
+                    <div class=" flexcol">
+                        <span class="descrSpan">Imperial Bonds:</span>
+                        <input type="text" class="combat-resources" data-target="system.wealth.value" value="{{system.wealth.value}}"placeholder="0" data-dtype="Number"/>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="descr flexrow">
+
+                <div class="descrRow flex-group-left">
+
+                    <label class="underline">Cadet Houses</label>
+                    <a class="item-create button" data-type="cadetHouse" title="Add a new Cadet House">Add Cadet House</a>
+                    {{#each cadetHouses}}
+                    <div class="desccrRow flex-group-left flexcol">
+                        <img class="cadetHouse-img" src="{{this.img}}" title="{{this.name}}" />
+                        <div class="list-item">
+                            
+                            <span class="underline">Name:</span>
+                            <span>{{name}}</span>
+                        </div>
+
+                        <div class="list-item">
+                            <span class="underline">House Head:</span>
+                            <span>{{system.houseHead.value}}</span>
+                        </div>
+
+                        <div class="list-item flexrow">
+                            <span class="underline">Location:</span>
+                            <span>{{system.location.value}}</span>
+                            <a class="list-button item-edit" title="Edit" data-item-id="{{this.id}}"></a>
+                            <a class="list-button item-delete" title="Delete" data-item-id="{{this.id}}"></a>
+                        </div>
+
+
+                    </div>
+                    {{/each}}
+
+                </div>
+                <div class="descrRow flex-group-left">
+
+                    <label class="underline">House Holdings</label>
+                    <a class="item-create button" data-type="outpost" title="Add a new Holding">Add Holding</a>
+                    {{#each outposts}}
+                    <div class="desccrRow flex-group-left flexcol">
+                        <div class="list-item">
+                            <span class="underline">Name:</span>
+                            <span>{{name}}</span>
+                        </div>
+
+                        <div class="list-item">
+                            <span class="underline">Type:</span>
+                            <span>{{system.type.value}}</span>
+                        </div>
+
+                        <div class="list-item flexrow">
+                            <span class="underline">Location:</span>
+                            <span>{{system.location.value}}</span>
+                            <a class="list-button item-edit" title="Edit" data-item-id="{{this.id}}"></a>
+                            <a class="list-button item-delete" title="Delete" data-item-id="{{this.id}}"></a>
+                        </div>
+
+
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="tab repairbay" data-group="primary" data-tab="repairbay">
+            <div class="flexrow">
+                <div class=" flexcol">
+                    <span class="descrSpan">Repair Bays:</span>
+                    <input type="text" class="combat-resources" data-target="system.repairBays.value" value="{{system.repairBays.value}}"placeholder="1" data-dtype="Number"/>
+                </div>
+                <div class=" flexcol">
+                    <span class="descrSpan">Cost (%):</span>
+                    <input type="text" class="combat-resources" data-target="system.repairBays.cost" value="{{system.repairBays.cost}}" data-dtype="Number"/>
+                </div>
+                <div class=" flexcol">
+                    <span class="descrSpan">Time (%):</span>
+                    <input type="text" class="combat-resources" data-target="system.repairBays.time" value="{{system.repairBays.time}}" data-dtype="Number"/>
+                </div>
+            </div>
+
+            <div class="flexrow">
+               
+                <a class="repairEntry-create button" title="Add a new Repair Entry">Add Repair Entry</a>
+                
+            </div>
+
+            <div class="list grid grid-2col">
+                <span class="list-item-header">Entry</span>
+                <span class="list-item-header-last">Time Left</span>
+              
+                {{#each currentRepairs}}
+              
+                <div class="drag list-emphasis"  data-id="{{this.id}}">
+
+                    <span data-id="{{this.id}}">{{name}}</span>
+                </div>
+
+                
+
+                <div class="flexrow list-emphasis">
+
+                    <span>{{system.time.label}}</span>
+                    <a class="list-button item-edit" title="Edit" data-item-id="{{this.id}}"></a>
+                    <a class="list-button delete-repair" title="Delete" data-index="{{@index}}" data-queue="current" data-item-id="{{this.id}}"></a>
+                </div>
+
+
+
+                {{/each}}
+                {{#each queue}}
+                <div class="drag list-item"  data-id="{{this.id}}">
+
+                    <span data-id="{{this.id}}">{{name}}</span>
+                </div>
+
+                <div class="flexrow list-item">
+
+                    <span>{{system.time.label}}</span>
+                    <a class="list-button item-edit" title="Edit" data-item-id="{{this.id}}"></a>
+                    <a class="list-button delete-repair" title="Delete" data-index="{{@index}}" data-queue="queue" data-item-id="{{this.id}}"></a>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="tab inventory" data-group="primary" data-tab="inventory">
+            <div class="flexrow">
+                <a class="knightComponent-create button" title="Add a new Component">Add Component</a>
+                <div class="flexcol ">
+                    <label>Show:</label>
+                    <select class="component-select"  data-dtype="String">
+
+
+                        <option value="all">All</option>
+                        {{#each knightComponentTypes}}
+                        <option value="{{this.value}}"{{#if (compareString this.value ../inventoryFilter)}}selected{{/if}}>{{this.label}}</option>
+                        {{/each}}
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="list grid list4col" id="componentList">
+                <span class="list-item-header">Component</span>
+                <span class="list-item-header">Number Owned</span>
+                <span class="list-item-header">Edit</span>
+                <span class="list-item-header">Del.</span>
+                {{#each components}}
+
+                <div class="list-item " name="component"{{#if (compareString ../inventoryFilter "all")}}style="display:"{{else if (compareString system.knightComponentType ../inventoryFilter)}}style="display:"{{else}}style="display: none"{{/if}} type="{{system.knightComponentType}}">
+
+                    <span >{{name}}</span>
+                </div>
+
+                <div class="list-item flexrow" name="component" {{#if (compareString ../inventoryFilter "all")}}style="display:"{{else if (compareString system.knightComponentType ../inventoryFilter)}}style="display:"{{else}}style="display: none"{{/if}} type="{{system.knightComponentType}}">
+                    {{#if ../isGM}}
+                    <input type="text" class="item-text-input list-item" data-target="system.amount.taken" value="{{system.amount.taken}}" data-item-id="{{this.id}}" data-dtype="Number">
+                    {{/if}}
+                    <input type="text" class="item-text-input list-item" data-target="system.amount.value" value="{{system.amount.value}}" data-item-id="{{this.id}}" data-dtype="Number">
+                </div>
+
+
+
+                <div class="list-item" name="component" {{#if (compareString ../inventoryFilter "all")}}style="display:"{{else if (compareString system.knightComponentType ../inventoryFilter)}}style="display:"{{else}}style="display: none"{{/if}} type="{{system.knightComponentType}}">
+                    <a class="list-button item-edit" title="Edit" data-item-id="{{this.id}}"></a>
+                </div>
+                <div class="list-item" name="component" {{#if (compareString ../inventoryFilter "all")}}style="display:"{{else if (compareString system.knightComponentType ../inventoryFilter)}}style="display:"{{else}}style="display: none"{{/if}} type="{{system.knightComponentType}}">
+                    <a class="list-button item-delete" title="Delete" data-item-id="{{this.id}}"></a>
+
+                </div>
+
+
+                {{/each}}
+            </div>
+        </div>
+
+
+    </section>
+</form>

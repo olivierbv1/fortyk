@@ -1,0 +1,38 @@
+<form class="{{cssClass}} item-sheet flexcol">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{name}}"/>
+
+    </header>
+    {{#if isGM}}
+    <label class="button clone">Copy Item</label>
+    {{/if}}
+    <div class="flexcol">
+        <label>Name:</label>
+        <input type="text" value="{{name}}" name="name">
+    </div>
+    <div class="flexcol">
+        <label>Power:</label>
+        <input type="text" value="{{system.power.value}}" name="system.power.value">
+    </div>
+    <div class="flexcol">
+        <label>Space:</label>
+        <input type="text" value="{{system.space.value}}" name="system.space.value">
+    </div>
+    <div class="flexcol">
+        <label>Ship Points:</label>
+        <input type="text" value="{{system.sp.value}}" name="system.sp.value">
+    </div>
+    <div class="flexcol">
+        <label>Type:</label>
+        <input type="text" value="{{system.type.value}}" name="system.type.value">
+    </div>
+    {{#if isGM}}
+    <div class="flexcol">
+        <a class="modifier button">Active Effect</a>
+    </div>
+    {{/if}}
+    <div class="item-description">
+        <label>Description:</label>
+        {{editor system.description.value target="system.description.value" button=true owner=owner editable=editable}}
+    </div>
+</form>

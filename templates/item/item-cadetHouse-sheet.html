@@ -1,0 +1,27 @@
+<form class="{{cssClass}} item-sheet flexcol">
+ <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{name}}"/>
+        
+    </header>
+    {{#if isGM}}
+    <label class="button clone">Copy Item</label>
+    {{/if}}
+    <div class="flexcol">
+        <label>Name:</label>
+        <input type="text" value="{{name}}" name="name">
+    </div>
+    <div class="flexcol">
+        <label>House Head:</label>
+        <input type="text" value="{{system.houseHead.value}}" name="system.houseHead.value">
+    </div>
+    <div class="flexcol">
+        <label>Location:</label>
+        <input type="text" value="{{system.location.value}}" name="system.location.value">
+    </div>
+    
+    
+    <div class="item-description">
+        <label>Description:</label>
+        {{editor system.description.value target="system.description.value" button=true owner=owner editable=editable}}
+    </div>
+</form>

@@ -1,0 +1,37 @@
+<form class="spendExp-dialog">
+
+    <select class="mode">
+        {{selectOptions advancementTypes selected=mode valueAttr="value" labelAttr="value"}}
+        
+    </select>
+    {{#if (compareString mode "Custom")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/custom.html"}}
+    {{/if}}
+    {{#if (compareString mode "Skill Upgrade")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/skill.html"}}
+    {{/if}}
+    {{#if (compareString mode "Characteristic Upgrade")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/characteristic.html"}}
+    {{/if}}
+    {{#if (compareString mode "New Skill")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/newSkill.html"}}
+    {{/if}}
+    {{#if (compareString mode "Talent")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/talent.html"}}
+    {{/if}}
+    {{#if (compareString mode "Signature Wargear")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/signature-wargear.html"}}
+    {{/if}}
+    {{#if (compareString mode "Psy Rating")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/psy-rating.html"}}
+    {{/if}}
+    {{#if (compareString mode "Psychic Power")}}
+    {{> "systems/fortyk/templates/actor/dialogs/spendExp-dialog-parts/psychic-power.html"}}
+    {{/if}}
+    <div class="grid grid-3col">
+        <span class="cost-header">Cost </span><span class="cost-header">Character Exp </span><span class="cost-header">Remaining Exp </span>
+        <span class="cost-span" id="cost">{{cost}} EXP</span><span class="cost-span" id="actorExp">{{actorExp}} EXP</span><span class="cost-span" id="remainingExp">{{remainingExp}} EXP</span>
+    </div>
+    
+    <button class="submit button" id="submitButton" data-type="advancement" title="Add a new Advancement">Add Advancement</button>
+</form>
